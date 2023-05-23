@@ -9,14 +9,24 @@ import Slider from "../components/Slider";
 
 const Home = () => {
   return (
-    <div>
-      <Navbar />
-      <Slider />
-      <Categories />
-      <Products/>
-      <Newsletter/>
-      <Footer/>
-    </div>
+    // <div>
+    //   <Navbar />
+    //   <Slider />
+    //   <Categories />
+    //   <Products/>
+    //   <Newsletter/>
+    //   <Footer/>
+    // </div>
+     <div>
+     {/* <ScrollToTop smooth color="white" style={{backgroundColor: "teal"}}/> */}
+     <Navbar />
+     <Announcement />
+     <Slider />
+     <Categories />
+     <Products/>
+     <Newsletter/>
+     <Footer/>
+   </div>
   );
 };
 

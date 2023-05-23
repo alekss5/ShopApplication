@@ -7,14 +7,14 @@ import Cart from "./pages/Cart";
 
 import CreateProduct from "./pages/CreateProguct"
 
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Redirect,
-// } from "react-router-dom";
-// import Success from "./pages/Success";
-// import { useSelector } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Success from "./pages/Success";
+import { useSelector } from "react-redux";
 import {createBrowserRouter,RouterProvider}from 'react-router-dom'
 const router = createBrowserRouter([
     {
