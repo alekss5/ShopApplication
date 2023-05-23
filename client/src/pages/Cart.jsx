@@ -8,7 +8,7 @@ import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
-import { addProduct } from "../redux/cartRedux";
+import { addProduct,removeProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 // import { useHistory } from "react-router";
 
@@ -172,9 +172,7 @@ const Cart = () => {
     setStripeToken(token);
   };
   const handleRemove = (productId) => {
-    console.log(productId)
-    const updatedCart = cart.products.filter((product) => product.id !== productId);
-    dispatch(addProduct(updatedCart));
+    dispatch(removeProduct(productId));
   };
   
 
@@ -230,7 +228,7 @@ const Cart = () => {
                   <ProductAmountContainer>
                     <Add />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                     {/* <Remove onClick={() => handleRemove(product.id)} />  */}
+                     <Remove/> 
                      <button  onClick={() => handleRemove(product.id)}></button>
                   </ProductAmountContainer>
                   <ProductPrice>
