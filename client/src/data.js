@@ -1,7 +1,7 @@
 export const sliderItems = [
     {
       id: 1,
-      img: "https://i.ibb.co/XsdmR2c/1.png",
+      img: "https://img.freepik.com/free-photo/beautiful-model-dressed-elegant-summer-clothes-sexy-carefree-girl-posing-street-near-wall-trendy-modern-businesswoman-sunglasses-having-fun_158538-6704.jpg?w=2000",
       title: "SUMMER SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "f5fafd",

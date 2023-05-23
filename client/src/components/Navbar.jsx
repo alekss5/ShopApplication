@@ -152,6 +152,7 @@ const Input = styled.input`
 const Center = styled.div`
   flex: 1;
   text-align: center;
+  cursor: pointer;
 `;
 
 const Logo = styled.h1`
@@ -211,7 +212,7 @@ return (
         </SearchContainer>
       </Left>
       <Center>
-        <Logo onClick={navigateToHome}>LAMA.</Logo>
+        <Logo onClick={navigateToHome}>RESENTMENT</Logo>
       </Center>
       <Right>
         <MenuItem onClick={navigateToRegister}>REGISTER</MenuItem>

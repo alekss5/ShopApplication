@@ -8,7 +8,7 @@ import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
-import { addProduct,removeProduct } from "../redux/cartRedux";
+import { addProduct,removeProduct,updatePrice,updateTotalPrice } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 // import { useHistory } from "react-router";
 
@@ -171,8 +171,21 @@ const Cart = () => {
   const onToken = (token) => {
     setStripeToken(token);
   };
+
+
   const handleRemove = (productId) => {
     dispatch(removeProduct(productId));
+  
+    // Calculate the new total price
+    const updatedTotal = cart.products.reduce((total, product) => {
+      if (product.id !== productId) {
+        return total + product.price * product.quantity;
+      }
+      return total;
+    }, 0);
+  
+    // Update the total price in the Redux store
+    dispatch(updateTotalPrice(updatedTotal));
   };
   
 
@@ -200,7 +213,7 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Shopping Bag(0)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           {/* <TopButton type="filled">CHECKOUT NOW</TopButton> */}
@@ -228,8 +241,8 @@ const Cart = () => {
                   <ProductAmountContainer>
                     <Add />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                     <Remove/> 
-                     <button  onClick={() => handleRemove(product.id)}></button>
+                     <Remove/> //remove product from cart
+                     <button  onClick={() => handleRemove(product.id)}></button>//, cart.total-=(product.price*product.quantity)
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
@@ -258,8 +271,8 @@ const Cart = () => {
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="Lama Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              name="Resentment Shop"
+              image="https://cdn5.vectorstock.com/i/1000x1000/71/94/capital-letter-r-from-the-white-interwoven-strips-vector-8537194.jpg"//"https://avatars.githubusercontent.com/u/1486366?v=4"
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}
