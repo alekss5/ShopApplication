@@ -7,6 +7,25 @@ const {
 
 const router = require("express").Router();
 
+
+//SEARCH
+router.get("/search", async (req, res) => {
+  const searchTerm = req.query.term;
+
+  try {
+    // Perform the search operation using Mongoose
+    const searchResults = await Product.find({
+      title: { $regex: searchTerm, $options: "i" },
+    });
+    console.log(searchTerm)
+
+    res.json(searchResults);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 //CREATE
 
 router.post("/",  async (req, res) => {

@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
-import ScrollToTop from "react-scroll-to-top";
+// import ScrollToTop from "react-scroll-to-top";
 
 const Home = () => {
   return (
@@ -19,7 +19,7 @@ const Home = () => {
     //   <Footer/>
     // </div>
      <div>
-     <ScrollToTop smooth color="white" style={{backgroundColor: "gray",opacity:"50%"}}/>
+     {/* <ScrollToTop smooth color="white" style={{backgroundColor: "gray",opacity:"50%"}}/> */}
      <Navbar />
      <Announcement />
      <Slider />

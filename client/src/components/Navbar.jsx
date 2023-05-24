@@ -197,8 +197,8 @@ export default function Navbar() {
   const navigateToLogin = () => {
     navigate('/login');
   };
-  const navigateToCart = () => {
-    navigate('/cart');
+  const navigateToAllProducts = () => {
+    navigate('/productList');
   };
 
 return (
@@ -206,15 +206,16 @@ return (
     <Wrapper>
       <Left>
         <Language>EN</Language>
-        <SearchContainer>
+        {/* <SearchContainer>
           <Input placeholder="Search" />
           <Search style={{ color: "gray", fontSize: 16 }} />
-        </SearchContainer>
+        </SearchContainer> */}
       </Left>
       <Center>
         <Logo onClick={navigateToHome}>RESENTMENT</Logo>
       </Center>
       <Right>
+      <MenuItem onClick={navigateToAllProducts}>ALL PRODUCTS</MenuItem>
         <MenuItem onClick={navigateToRegister}>REGISTER</MenuItem>
         <MenuItem onClick={navigateToLogin}>SIGN IN</MenuItem>
             <Link to="/cart">

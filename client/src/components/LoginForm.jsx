@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -73,18 +74,19 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isFetching, error } = useSelector((state) => state.user);
+  // const { isFetching, error } = useSelector((state) => state.user);
+  const [error,setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = async (e) => {
     e.preventDefault();
-    
-   
-
   const userData = {
     username,
     password
   };
 
+
+ 
   try {
     const response = await fetch("http://localhost:5001/api/auth/login", {
       method: "POST",
@@ -96,16 +98,19 @@ const Login = () => {
 
     if (response.ok) {
       login(dispatch, { username, password });
-      // Authentication successful, handle the response (e.g., show success message)
+      navigate('/');
       console.log("User authenticated successfully");
     } else {
-      // Authentication failed, handle the error response (e.g., show error message)
+      setError(true)
       console.error("Authentication failed");
     }
   } catch (error) {
-    // Handle error (e.g., show error message)
+   
     console.error(error);
   }
+  };
+  const navigateToRegister = () => {
+    navigate('/register');
   };
 
   return (
@@ -122,12 +127,12 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button onClick={handleClick} disabled={isFetching}>
+          <Button onClick={handleClick} >
             LOGIN
           </Button>
-          {error && <Error>Something went wrong...</Error>}
+          {error? <Error>Something went wrong...</Error>:null}
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Link onClick={navigateToRegister} >CREATE A NEW ACCOUNT</Link>
         </Form>
       </Wrapper>
     </Container>

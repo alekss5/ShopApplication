@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
+import { Search} from "@material-ui/icons";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
-import { useState } from "react";
+import { useState, useEffect} from "react";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -38,11 +40,45 @@ const Select = styled.select`
 `;
 const Option = styled.option``;
 
+const SearchContainer = styled.div`
+  border: 0.5px solid lightgray;
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  padding: 5px;
+  width:140px;
+`;
+
+const Input = styled.input`
+  border: none;
+  ${mobile({ width: "50px" })}
+`;
+
 const ProductList = () => {
   const location = useLocation();
   const cat = location.pathname.split("/")[2];
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  // useEffect(() => {
+  //   const searchProducts = async () => {
+  //     try {
+  //       const response = await axios.get(`http://localhost:5001/api/products/search?term=${searchTerm}`);
+  //       setSearchResults(response.data);
+  //       console.log(searchResults);
+  //     } catch (error) {
+  //       console.error("Error searching products:", error);
+  //     }
+  //   };
+
+  //   if (searchTerm) {
+  //     searchProducts();
+  //   } else {
+  //     setSearchResults([]);
+  //   }
+  // }, [searchTerm]);
 
   const handleFilters = (e) => {
     const value = e.target.value;
@@ -86,7 +122,16 @@ const ProductList = () => {
             <Option value="desc">Price (desc)</Option>
           </Select>
         </Filter>
+        
       </FilterContainer>
+      {/* <SearchContainer>
+      <Input
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search style={{ color: "gray", fontSize: 16 }} />
+          </SearchContainer> */}
       <Products cat={cat} filters={filters} sort={sort} />
       <Newsletter />
       <Footer />

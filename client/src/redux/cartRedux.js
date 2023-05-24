@@ -26,33 +26,48 @@ const cartSlice = createSlice({
     products: [],
     quantity: 0,
     total: 0,
+   
+    
   },
   reducers: {
     addProduct: (state, action) => {
-      state.quantity += 1;
-      state.products.push(action.payload);
-      state.total += action.payload.price * action.payload.quantity;
-    },
-    removeProduct: (state, action) => {
-      const productId = action.payload;
-      state.products = state.products.filter((product) => product.id !== productId);
-      // Recalculate total if necessary
-    },
-    updatePrice: (state, action) => {
-      const { productId, newPrice } = action.payload;
-      const productToUpdate = state.products.find((product) => product.id === productId);
-      if (productToUpdate) {
-        state.total -= productToUpdate.price * productToUpdate.quantity;
-        productToUpdate.price = newPrice;
-        state.total += productToUpdate.price * productToUpdate.quantity;
+      const newProduct = action.payload;
+      const existingProduct = state.products.find(
+        (product) =>
+          product.id === newProduct.id &&
+          product.size === newProduct.size &&
+          product.color === newProduct.color
+      );
+
+      if (!existingProduct) {
+        state.products.push(newProduct);
+        state.quantity += newProduct.quantity;
+        state.total += newProduct.price * newProduct.quantity;
       }
     },
-    updateTotalPrice: (state) => {
-      state.total = state.products.reduce(
-        (total, product) => total + product.price * product.quantity,0);
+    removeProduct: (state, action) => {
+      const productInfo = action.payload;
+      console.log(productInfo);
+      const [id,color] = productInfo.split(',');
+      const productToRemoveIndex = state.products.findIndex(
+        (product) => product.id === id && product.color === color
+      );
+    
+      if (productToRemoveIndex !== -1) {
+        const productToRemove = state.products[productToRemoveIndex];
+        state.quantity -= productToRemove.quantity;
+        state.total -= productToRemove.price * productToRemove.quantity;
+        state.products.splice(productToRemoveIndex, 1);
+      }
     },
+    
+    removeAllProducts: (state, action) => {
+      state.products = [];
+      state.quantity = 0;
+      state.total = 0;
+    }
   },
 });
 
-export const { addProduct, removeProduct,updatePrice,updateTotalPrice } = cartSlice.actions;
+export const { addProduct, removeProduct,removeAllProducts } = cartSlice.actions;
 export default cartSlice.reducer;

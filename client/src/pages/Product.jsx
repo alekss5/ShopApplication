@@ -163,6 +163,7 @@ const Product = () => {
       setTitle(res.title);
       setAllColors(res.color);
       setAllSizes(res.size);
+      
 
       console.log(res.color);
       console.log(res.size);
