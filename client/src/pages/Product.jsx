@@ -174,7 +174,7 @@ const Product = () => {
         size:res.size,
         title: res.title,
         image: res.img,
-        description: res.description,
+        description: res.desc,
         color: res.color,
         price: res.price,
        

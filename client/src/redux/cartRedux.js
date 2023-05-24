@@ -60,14 +60,41 @@ const cartSlice = createSlice({
         state.products.splice(productToRemoveIndex, 1);
       }
     },
-    
     removeAllProducts: (state, action) => {
       state.products = [];
       state.quantity = 0;
       state.total = 0;
+    },
+    updateProductQuantity: (state, action) => {
+      const productInfo = action.payload;
+      const [id, color, operation] = productInfo.split(',');
+      const productIndex = state.products.findIndex(
+        (product) => product.id === id && product.color === color
+      );
+      console.log(operation)
+    
+      if (productIndex !== -1) {
+        const product = state.products[productIndex];
+        if (operation === 'inc') {
+          // Increase the quantity
+          product.quantity += 1;
+          state.total += product.price;
+          state.quantity +=1
+        } else if (operation === 'dec') {
+          // Decrease the quantity
+          if (product.quantity > 1) {
+            product.quantity -= 1;
+            state.total -= product.price;
+            state.quantity -=1
+          }
+        }
+      }
     }
+    
+    
+
   },
 });
 
-export const { addProduct, removeProduct,removeAllProducts } = cartSlice.actions;
+export const { addProduct, removeProduct,removeAllProducts,updateProductQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

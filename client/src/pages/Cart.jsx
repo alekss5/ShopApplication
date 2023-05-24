@@ -8,7 +8,7 @@ import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
-import { addProduct,removeProduct,removeAllProducts } from "../redux/cartRedux";
+import { updateProductQuantity,removeProduct,removeAllProducts } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 // import { useHistory } from "react-router";
 
@@ -192,6 +192,18 @@ const Cart = () => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total]);
+
+
+  const incProduct =(product)=>{
+    const productInfo =product.id+","+product.color+","+"inc";
+    console.log(productInfo);
+    dispatch(updateProductQuantity(productInfo));
+  }
+  const decProduct =(product)=>{
+    const productInfo =product.id+","+product.color+","+"dec";
+    console.log(productInfo);
+    dispatch(updateProductQuantity(productInfo));
+  }
   return (
     <Container>
       <Navbar />
@@ -227,9 +239,9 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={() =>incProduct(product)}/>
                     <ProductAmount>{product.quantity}</ProductAmount>
-                     <Remove/> 
+                     <Remove onClick={() =>decProduct(product)}/> 
                      <button  onClick={() => handleRemove(product.id,product.color)}></button>
                   </ProductAmountContainer>
                   <ProductPrice>
