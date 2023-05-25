@@ -111,6 +111,7 @@ import { mobile } from "../responsive";
 import { Link,useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -202,6 +203,7 @@ export default function Navbar() {
   };
 
 return (
+  
   <Container>
     <Wrapper>
       <Left>

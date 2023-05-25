@@ -159,6 +159,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  margin-top: 5%;
 `;
 
 const Cart = () => {
@@ -232,9 +233,9 @@ const Cart = () => {
                       <b>ID:</b> {product.id}
                     </ProductId>
                     <ProductColor color={product.color} />
-                    <ProductSize>
+                    {/* <ProductSize>
                       <b>Size:</b> {product.size}
-                    </ProductSize>
+                    </ProductSize> */}
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
@@ -271,8 +272,8 @@ const Cart = () => {
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="Lama Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              name="RESENTMENT"
+              image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP_dcjLPT3bcNrMRUB5MY9r83YHM64MOsVOA&usqp=CAU"
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}
@@ -283,7 +284,7 @@ const Cart = () => {
               <Button>CHECKOUT NOW</Button>
              
             </StripeCheckout>
-            <Button onClick={()=>{ dispatch(removeAllProducts());}}>removeAllProducts</Button>
+            <Button onClick={()=>{ dispatch(removeAllProducts());}}>REMOVE ALL</Button>
           </Summary>
         </Bottom>
       </Wrapper>
