@@ -196,13 +196,13 @@ const Cart = () => {
 
 
   const incProduct =(product)=>{
+  
+    console.log(product)
     const productInfo =product.id+","+product.color+","+"inc";
-    console.log(productInfo);
     dispatch(updateProductQuantity(productInfo));
   }
   const decProduct =(product)=>{
     const productInfo =product.id+","+product.color+","+"dec";
-    console.log(productInfo);
     dispatch(updateProductQuantity(productInfo));
   }
   return (
@@ -233,9 +233,9 @@ const Cart = () => {
                       <b>ID:</b> {product.id}
                     </ProductId>
                     <ProductColor color={product.color} />
-                    {/* <ProductSize>
+                    <ProductSize>
                       <b>Size:</b> {product.size}
-                    </ProductSize> */}
+                    </ProductSize>
                   </Details>
                 </ProductDetail>
                 <PriceDetail>

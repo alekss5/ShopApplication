@@ -5,9 +5,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
@@ -74,6 +72,7 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  outline: ${(props) => (props.selected ? '2px solid #000' : 'none')};
 `;
 
 const FilterSize = styled.select`
@@ -121,18 +120,10 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-  const location = useLocation();
-//  const id = location.pathname.split("/")[2];
-
- 
-
-  const[title, setTitle] = useState();
-
   const [color, setColor] = useState("");
-  const [allColors, setAllColors] = useState("")
+  const [allColors, setAllColors] = useState([])
   const [size, setSize] = useState("");
-  const [allSizes, setAllSizes] = useState('')
-
+  const [allSizes, setAllSizes] = useState([])
 
   const [product, setProduct] = useState({
     id:"",
@@ -140,18 +131,11 @@ const Product = () => {
     title: '',
     idItem: '',
     color: '',
-    size: [],
+    size: '',
     price: 0,
   });
-  
-  const[description, setDescription] = useState()
-
-  
-
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
-
-
 
   const searchParams = new URLSearchParams(window.location.search);
   const id = searchParams.get("id");
@@ -160,32 +144,24 @@ const Product = () => {
         fetch(`http://localhost:5001/api/products/find/${id}`)
         .then(response => response.json())
         .then(res => {
-      setTitle(res.title);
+     
+          // console.log("Size"+res.size);
       setAllColors(res.color);
       setAllSizes(res.size);
-      
 
-      console.log(res.color);
-      console.log(res.size);
-      
+      setColor(res.color[0])
       setProduct(prevProduct => ({
         ...prevProduct,
         id:res._id,
-        size:res.size,
+        size:res.size[0],
         title: res.title,
         image: res.img,
         description: res.desc,
-        color: res.color,
+        color: res.color[0],
         price: res.price,
        
         
       }));
-      // setColor(res.color);
-      // setSize(res.size);
-    console.log("s"+product.description);
-      console.log("sizee"+product.size);
-     
-     
     })
     .catch(error => {
       console.error(error);
@@ -202,9 +178,20 @@ const Product = () => {
 
   const handleClick = () => {
     dispatch(
-      addProduct({ ...product, quantity, color, size })
+      addProduct({ ...product, quantity, color })
     );
-    console.log(product)
+    
+    // console.log(product)
+  };
+
+  const handleSize =  (event) => {
+    const selectedSize = event.target.value;
+    setSize(selectedSize)
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      size: selectedSize,
+    }));
+   
   };
   return (
     <Container>
@@ -220,18 +207,23 @@ const Product = () => {
             <Filter>
             <FilterTitle>Color</FilterTitle>
 {Array.isArray(allColors) && allColors.map((c) => (
-  <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+  <FilterColor color={c} key={c} onClick={() => setColor(c)}   selected={color === c}/>
 ))}
 </Filter>
 
             <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize >
-              {Array.isArray(allSizes) && allSizes.map((s) => (
-  <FilterSizeOption key={s} onClick={()=>setSize(s)}>{s}</FilterSizeOption>
-))}
+              <FilterTitle>Size</FilterTitle> 
+              {/* {Array.isArray(allSizes) && allSizes.map((s) => (
+  <FilterSizeOption key={s} onChange={()=>handleSize(s)}>{s}</FilterSizeOption>
+))} */}
+<select id="size" value={size} onChange={handleSize}>
+        {Array.isArray(allSizes) && allSizes.map((s) => (
+          <option key={s} onChange={handleSize} value={s}>{s}</option>
+        ))}
+      </select>
 
-              </FilterSize>
+
+             
             </Filter>
           </FilterContainer>
           <AddContainer>

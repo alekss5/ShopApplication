@@ -26,12 +26,11 @@ const cartSlice = createSlice({
     products: [],
     quantity: 0,
     total: 0,
-   
-    
   },
   reducers: {
     addProduct: (state, action) => {
       const newProduct = action.payload;
+    
       const existingProduct = state.products.find(
         (product) =>
           product.id === newProduct.id &&
@@ -76,12 +75,10 @@ const cartSlice = createSlice({
       if (productIndex !== -1) {
         const product = state.products[productIndex];
         if (operation === 'inc') {
-          // Increase the quantity
           product.quantity += 1;
           state.total += product.price;
           state.quantity +=1
         } else if (operation === 'dec') {
-          // Decrease the quantity
           if (product.quantity > 1) {
             product.quantity -= 1;
             state.total -= product.price;
@@ -90,9 +87,6 @@ const cartSlice = createSlice({
         }
       }
     }
-    
-    
-
   },
 });
 
