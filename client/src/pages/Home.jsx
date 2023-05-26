@@ -7,8 +7,12 @@ import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
 import ScrollToTop from "react-scroll-to-top";
+import { useSelector } from "react-redux";
+
 
 const Home = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  console.log("Home");
   return (
     // <div>
     //   <Navbar />
@@ -19,8 +23,10 @@ const Home = () => {
     //   <Footer/>
     // </div>
      <div>
+     
      <ScrollToTop smooth color="white" style={{backgroundColor: "gray",opacity:"50%"}}/>
-     <Navbar />
+    <Navbar/>
+     
      <Announcement />
      <Slider />
      <Categories />

@@ -4,8 +4,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {mobile} from "../responsive"
 import { Link,useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useSelector,useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
 
 
 
@@ -88,9 +88,10 @@ const Input=styled.input`
 `
 
 const NavbarLogedIn = () => {
-  const history = useNavigate();
   const quantity = useSelector(state=>state.cart.quantity);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const navigateToHome = () => {
     navigate('/');
   };
@@ -113,6 +114,10 @@ const NavbarLogedIn = () => {
   const navigateToAllProducts = () => {
     navigate('/productList');
   };
+  const handleLogout = () => {
+   
+    dispatch(logout());
+  };
 
  
   return (
@@ -126,26 +131,13 @@ const NavbarLogedIn = () => {
         </Left>
         <Center> <Logo onClick={navigateToHome}>RESENTMENT</Logo></Center>
         <Right>
-        {/* <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer> */}
-
-          {/* <SearchContainer>
-          <Input placeholder="search"/>
-          <Search style={{color:"black", fontSize:30}}/>        
-          </SearchContainer> */}
           <AccountCircle/>
           <MenuItem>
-
             <Favorite/>
-
           </MenuItem>
           {/* <MenuItem>
             <Badge badgeContent={4} color="primary"/>
-            
             <ShoppingCart onClick={handleCart}/>
-
           </MenuItem> */}
           <Link to="/cart">
                <MenuItem>
@@ -155,9 +147,9 @@ const NavbarLogedIn = () => {
                </MenuItem>
             </Link>
           {/* <ShoppingCart/> */}
+          <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
         </Right>
       </Wrapper>
-      
     </Container>
   )
 }

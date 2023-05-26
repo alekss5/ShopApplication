@@ -110,7 +110,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link,useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import NavbarLogedIn from "./NavbarLogedIn"
 
 const Container = styled.div`
   height: 60px;
@@ -179,6 +179,7 @@ const MenuItem = styled.div`
 export default function Navbar() {
   const quantity = useSelector(state=>state.cart.quantity);
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navigateToHome = () => {
     navigate('/');
   };
@@ -203,8 +204,14 @@ export default function Navbar() {
   };
 
 return (
-  
-  <Container>
+  <>
+  <div>
+      {currentUser ?(
+    
+  <NavbarLogedIn/>
+        
+      ) : (
+        <Container>
     <Wrapper>
       <Left>
         <Menu/>
@@ -230,5 +237,8 @@ return (
       </Right>
     </Wrapper>
   </Container>
+      )}
+    </div>
+  </>
 );
 }

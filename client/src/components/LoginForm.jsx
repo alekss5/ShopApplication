@@ -98,7 +98,7 @@ const Login = () => {
 
     if (response.ok) {
       login(dispatch, { username, password });
-      navigate('/logedin');
+      navigate('/');
       console.log("User authenticated successfully");
     } else {
       setError(true)
