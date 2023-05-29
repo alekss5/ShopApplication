@@ -41,8 +41,8 @@ const Container = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 50px;
+  height: 0px;
   border-radius: 50%;
   background-color: white;
   position: absolute;

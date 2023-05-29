@@ -1,24 +1,24 @@
 export const sliderItems = [
     {
       id: 1,
-      img: "https://img.freepik.com/free-photo/beautiful-model-dressed-elegant-summer-clothes-sexy-carefree-girl-posing-street-near-wall-trendy-modern-businesswoman-sunglasses-having-fun_158538-6704.jpg?w=2000",
-      title: "SUMMER SALE",
-      desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+      img: "https://cld.accentuate.io/86036709437/1660611315499/Look_004.jpg?v=1660611315499&options=w_1092",
+      title: "WOMENS FASHION",
+      desc: "",
       bg: "f5fafd",
     },
     {
       id: 2,
-      img: "https://i.ibb.co/DG69bQ4/2.png",
-      title: "AUTUMN COLLECTION",
-      desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      bg: "fcf1ed",
+      img: "https://cld.accentuate.io/86036709437/1660611498587/Look_024.jpg?v=1660611498587&options=w_1092",
+      title: "MENS FASHION",
+      desc: "",
+      bg: "f5fafd",
     },
     {
       id: 3,
-      img: "https://i.ibb.co/cXFnLLV/3.png",
-      title: "LOUNGEWEAR LOVE",
-      desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      bg: "fbf0f4",
+      img: "https://cld.accentuate.io/86036709437/1660611531446/Look_028.jpg?v=1660611531446&options=w_1092",
+      title: "NEW ARRIVALS",
+      desc: "",
+      bg: "f5fafd",
     },
   ];
 

@@ -53,7 +53,7 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
-  height: 80%;
+  height: 95%;
 `;
 
 const InfoContainer = styled.div`
@@ -63,6 +63,7 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 70px;
+  margin-bottom: 15%;
 `;
 
 const Desc = styled.p`
@@ -70,14 +71,19 @@ const Desc = styled.p`
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
+  color:f5fafd;
 `;
 
 const Button = styled.button`
   padding: 10px;
+  width:50%;
   font-size: 20px;
-  background-color: transparent;
+  margin-top: 10%;
+  background-color: white;//transparent;
   cursor: pointer;
+  
 `;
+
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -103,7 +109,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
+              <Button>SHOW ALL</Button>
             </InfoContainer>
           </Slide>
         ))}
