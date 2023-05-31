@@ -7,7 +7,29 @@ const {
 
 const router = require("express").Router();
 
+//BY SEARCHTERM
+router.post("/term", async (req, res) => {
+  const { size, color } = req.body;
 
+
+  try {
+    let products;
+
+    if (size && color) {
+      products = await Product.find({ size: size, color: color });
+    } else if (size) {
+      products = await Product.find({ size: size });
+    } else if (color) {
+      products = await Product.find({ color: color });
+    } else {
+      products = await Product.find();
+    }
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 //SEARCH
 router.get("/search", async (req, res) => {
   const searchTerm = req.query.term;
@@ -17,7 +39,7 @@ router.get("/search", async (req, res) => {
     const searchResults = await Product.find({
       title: { $regex: searchTerm, $options: "i" },
     });
-    console.log(searchTerm)
+   
 
     res.json(searchResults);
   } catch (error) {

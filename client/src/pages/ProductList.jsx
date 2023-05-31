@@ -82,10 +82,16 @@ const ProductList = () => {
 
   const handleFilters = (e) => {
     const value = e.target.value;
-    setFilters({
-      ...filters,
-      [e.target.name]: value,
-    });
+const updatedFilters = { ...filters }; // Create a copy of the filters object
+
+if (value !== "none") {
+  updatedFilters[e.target.name] = value; // Update the value of the property
+} else {
+  delete updatedFilters[e.target.name]; // Remove the property from the object
+}
+
+setFilters(updatedFilters); // Update the state with the updated filters object
+
   };
 
   return (
@@ -98,15 +104,17 @@ const ProductList = () => {
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>Color</Option>
-            <Option>white</Option>
-            <Option>black</Option>
-            <Option>red</Option>
-            <Option>blue</Option>
-            <Option>yellow</Option>
-            <Option>green</Option>
+            <Option>none</Option>
+            <Option>White</Option>
+            <Option>Black</Option>
+            <Option>Red</Option>
+            <Option>Blue</Option>
+            <Option>Yellow</Option>
+            <Option>Green</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option disabled>Size</Option>
+            <Option>none</Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>

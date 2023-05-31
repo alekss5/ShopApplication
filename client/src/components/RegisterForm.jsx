@@ -101,6 +101,7 @@ const RegisterForm = () => {
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
+      
         <Form>
           <Input
             type="text"

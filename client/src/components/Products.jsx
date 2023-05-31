@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { popularProducts } from "../data";
 import Product from "./Product";
 import axios from "axios";
-import { Search} from "@material-ui/icons";
+import { Search } from "@material-ui/icons";
 import { mobile } from "../responsive";
+
 
 const Container = styled.div`
   padding: 20px;
@@ -33,6 +34,8 @@ const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+
+
   // useEffect(() => {
   //   const getProducts = async () => {
   //     try {
@@ -46,22 +49,37 @@ const Products = ({ cat, filters, sort }) => {
   //   };
   //   getProducts();
   // }, [cat]);
-   useEffect(() => {
+  useEffect(() => {
     const getProducts = async () => {
       try {
-        if (searchTerm!==""){
+
+        if (searchTerm !== "") {
           const response = await axios.get(`http://localhost:5001/api/products/search?term=${searchTerm}`);
           setProducts(response.data);
         }
-        else{
+        else if (filters !== "") {
+          await axios
+            .post(`http://localhost:5001/api/products/term`,filters)
+            .then((response) => {
+              console.log(response.data);
+
+              setProducts(response.data);
+
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+
+        }
+        else {
           const response = await axios.get(`http://localhost:5001/api/products`);
-         setProducts(response.data);
+          setProducts(response.data);
         }
       }
-      catch (err) {}
+      catch (err) { }
     };
     getProducts();
-  }, [searchTerm]);
+  }, [filters,searchTerm]);
 
 
   useEffect(() => {
@@ -82,22 +100,23 @@ const Products = ({ cat, filters, sort }) => {
 
   return (
     <>
+     
       <SearchContainer>
-      <Input
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
-       
-    <Container>
-      {cat
-        ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        : products
+        <Input
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Search style={{ color: "gray", fontSize: 16 }} />
+      </SearchContainer>
+     
+      <Container>
+        {cat
+          ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+          : products
             .slice(0, 8)
             .map((item) => <Product item={item} key={item.id} />)}
-    </Container>
+      </Container>
     </>
   );
 };
